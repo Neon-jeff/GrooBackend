@@ -65,7 +65,8 @@ CORS_ALLOWED_ORIGINS = [
 
 
 CSRF_TRUSTED_ORIGINS=[
-     "http://127.0.0.1:5173"
+     "http://127.0.0.1:5173",
+     "https://groobackend-production.up.railway.app"
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -123,6 +124,12 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
+# Email configs
+# EMAIL CONFIGS VARIABLES
+
+EMAIL_USER=env("EUSER")
+EMAIL_AUTH=env("EPASS")
 
 AUTH_PASSWORD_VALIDATORS = [
     {
