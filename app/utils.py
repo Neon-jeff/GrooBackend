@@ -14,7 +14,7 @@ def SendEmail(user):
     recipient = f'{user.email}'
 # Create message
     msg = MIMEMultipart("alternative")
-    email_template=render_to_string('pages/transactional.html',{'user':user})
+    email_template=render_to_string('transactional.html',{'user':user})
     # text="Hi, welcome to nello"
     msg['Subject'] = f"Welcome STEMs"
     msg['From'] = sender

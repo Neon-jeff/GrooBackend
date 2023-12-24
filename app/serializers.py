@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+from .utils import SendEmail
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,7 +23,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
         Profile.objects.create(
             user=new_user
         )
-        return new_user
+        token=Token.objects.create(user=new_user)
+        SendEmail(new_user)
+        return token.key
 
     def check_email_unique(self,email):
         if User.objects.filter(email=email).first() is not None:

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
      'corsheaders',
+     'rest_framework.authtoken'
 ]
 
 # image configs
@@ -60,7 +61,9 @@ cloudinary.config(
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5173"
+    "http://127.0.0.1:5173",
+    "https://groo-frontend.vercel.app"
+
 ]
 
 
@@ -70,13 +73,13 @@ CSRF_TRUSTED_ORIGINS=[
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-SESSION_COOKIE_HTTPONLY = True
-SESSION_SAVE_EVERY_REQUEST = True
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
+# SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+# # SESSION_COOKIE_HTTPONLY = False
+# # SESSION_SAVE_EVERY_REQUEST = True
+# CSRF_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_HTTPONLY = False
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,7 +98,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,12 +117,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default':dj_database_url.parse(env('DATABASE_URL'))
 }
+
 
 
 # Password validation

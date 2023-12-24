@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication,BasicAuthentication
+from rest_framework.authentication import SessionAuthentication,BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from .serializers import *
 from django.contrib.auth import login,logout,authenticate
 from .models import *
 from rest_framework.parsers import MultiPartParser,FormParser
 from .authenticate import SessionCsrfExemptAuthentication
+from rest_framework.authtoken.models import Token
 
 # Create your views here.
 
@@ -25,11 +26,10 @@ class CreateUser(APIView):
             return Response({"error":"Email already used"}, status=400)
         serializer=CreateUserSerializer(data=request.data)
         if serializer.is_valid():
-            user=serializer.create(serializer.validated_data)
-        return Response({"user":user.id},status=200)
+            token=serializer.create(serializer.validated_data)
+        return Response({"user":token},status=200)
 
 class Login(APIView):
-    authentication_classes = [SessionCsrfExemptAuthentication]
     permission_classes = [AllowAny]
     def get(self,request):
         return Response({"user":"user"})
@@ -38,14 +38,14 @@ class Login(APIView):
         if serializer.is_valid():
             user=serializer.check_password(serializer.validated_data)
             if user is not None:
-                login(request,user)
-                return Response({"user":user.id})
+                token=Token.objects.get(user=user)
+                return Response({"user":token.key,"id":user.id})
             else:
                 return Response({"error":"Invalid login credentials"},status=400)
         return Response({"invalid":"login failed"},status=403   )
 
 class GetUser(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     def get(self,request):
         user=request.user
@@ -55,7 +55,7 @@ class GetUser(APIView):
 
 
 class GetProfile(APIView):
-    authentication_classes = [SessionCsrfExemptAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     def get(self,request):
         user=request.user
@@ -70,13 +70,14 @@ class GetProfile(APIView):
             return Response(serializer.data)
 
 class Logout(APIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self,request):
         logout(request)
         return Response({"message":"logout successful"})
 
 class CreateInvestment(APIView):
-    authentication_classes = [SessionCsrfExemptAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes=[IsAuthenticated]
     parser_classes=[MultiPartParser,FormParser]
     def get(self,request):
