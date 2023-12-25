@@ -101,3 +101,13 @@ class CreateInvestment(APIView):
             serializer.save()
             return Response({"investment":"created"},status=200)
         return Response({"success":"custom create"},status=200)
+
+
+class ChangePassword(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes=[IsAuthenticated]
+    def post(self,request):
+        user=request.user
+        user.set_password(request.data['password'])
+        user.save()
+        return Response({"success":"password changed"},status=200)
