@@ -1,2 +1,2 @@
-[start]
-cmd = "./build.sh"
+[phases.build]
+cmd = [...,"./build.sh"]
