@@ -21,7 +21,7 @@ frequency=(
 )
 
 class Profile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     phone=models.CharField(max_length=50,blank=True,null=True)
     address=models.CharField(max_length=50,blank=True,null=True)
     state=models.CharField(max_length=50,blank=True,null=True)
@@ -41,6 +41,7 @@ class Investments(models.Model):
     created=models.DateField(auto_now_add=True,null=True,blank=True)
     confirmed=models.BooleanField(default=False)
     image=CloudinaryField('image',blank=True,null=True)
+    document_url=models.URLField(blank=True,null=True)
     def __str__(self):
        return f'{self.user.first_name} {self.user.last_name} Investment '
 

@@ -9,6 +9,9 @@ from .models import *
 from rest_framework.parsers import MultiPartParser,FormParser
 from .authenticate import SessionCsrfExemptAuthentication
 from rest_framework.authtoken.models import Token
+from .utils import render_to_pdf
+import cloudinary.uploader
+from drf_pdf.renderer import PDFRenderer
 
 # Create your views here.
 
@@ -88,6 +91,7 @@ class CreateInvestment(APIView):
 
     def post(self,request,format=None):
         serializer=InvestmentSerializer(data=request.data)
+        user=request.user
         Investments.objects.create(
             user=request.user,
             amount=int(request.data['amount']),
@@ -95,8 +99,10 @@ class CreateInvestment(APIView):
             frequency_type=request.data['frequency_type'],
             image=request.data["image"],
             confirmed=False
-
         )
+        # new_investment.document_url=doc_data["url"]
+        # new_investment.document=render_to_pdf({"user":user,"investment":new_investment})
+        # new_investment.save()
         if serializer.is_valid():
             serializer.save()
             return Response({"investment":"created"},status=200)
@@ -111,3 +117,27 @@ class ChangePassword(APIView):
         user.set_password(request.data['password'])
         user.save()
         return Response({"success":"password changed"},status=200)
+
+class handleAgreement(APIView):
+    renderer_classes = (PDFRenderer, )
+    authentication_classes = [TokenAuthentication]
+    permission_classes=[IsAuthenticated]
+    def get(self,request,pk):
+        investment=Investments.objects.get(id=int(pk))
+        file=render_to_pdf({"user":request.user,"investment":investment})
+        headers = {
+            'Content-Disposition': 'filename="agreement.pdf"',
+            'Content-Length': len(file),
+        }
+
+        return Response(
+            file,
+            headers=headers,
+            status=200
+        )
+
+        # return render_to_pdf({"user":request.user,"investment":"iyke"})
+        # return Response("done")
+
+
+

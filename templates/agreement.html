@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agreement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <style>
+      * {
+        margin: 0;
+      }
+
+      .page2 {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- page 1 -->
+    <div class="page1">
+      <p
+        style="
+          font-size: 3.5rem;
+          font-weight: bold;
+          color: white;
+          height: 100vh;
+        "
+      >
+        STEM INVESTMENT DOCUMENT
+      </p>
+      <!-- decoration item -->
+    </div>
+    <!-- page 2 -->
+    <div class="page2">
+      <!-- centered headings -->
+      <div
+        style="
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+        "
+      >
+        <h2 style="color: #ffcf83">SUBSCRIPTION DOCUMENTS</h2>
+        <div>
+          <h1>STEM REAL ESTATE INVESTMENT COMMUNITY I, LLC,</h1>
+          <p>a Georgia limited liability company</p>
+        </div>
+        <h3>U.S. $75,000,000 MAXIMUM OFFERING AMOUNT</h3>
+        <p>Minimum Investment: 1 Unit</p>
+        <h4
+          style="
+            padding: 20px;
+            background-color: #0d3428;
+            color: white;
+            width: 45vw;
+            border-radius: 8px;
+          "
+        >
+          Total Subscription Amount($): {{investment.amount}}
+        </h4>
+      </div>
+      <!-- Investors details -->
+      <div>
+        <h3>Investor's Details</h3>
+        <!-- flex display -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 300px 300px;
+            justify-content: space-between;
+          "
+        >
+          <!-- Investor Detail -->
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <p>First Name</p>
+              <p>{{user.first_name}}</p>
+              <hr />
+            </div>
+
+            <div>
+              <p>Last Name</p>
+              <p>{{user.last_name}}</p>
+
+              <hr />
+            </div>
+
+            <div>
+              <p>SSN or Tax ID</p>
+              <p>{{user.profile.social_number}}</p>
+
+              <hr />
+            </div>
+          </div>
+
+          <!-- Joint Investor Detail -->
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <p>Joint Investor's first name (if applicable)</p>
+
+              <hr />
+            </div>
+
+            <div>
+              <p>Joint Investor's last name (if applicable)</p>
+
+              <hr />
+            </div>
+
+            <div>
+              <p>Joint Investor's SSN or Tax ID (if applicable)</p>
+
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attestation -->
+      <h1>Investor's Attestation</h1>
+      <p>
+        This Accredited Investor Agreement is entered into on
+        {{investment.created}}, by and between {{user.first_name}} ("Investor") and STEM REAL ESTATE INVESTMENT COMMUNITY I, LLC("Company"). WHEREAS, Investor represents that the following
+        statement is true: their investment is not more than 10% of the greater
+        of their annual income or net worth (for natural persons), or 10% of the
+        greater of their annual revenue or net assets at fiscal year-end (for
+        non-natural persons), as stipulated in the provided statement. NOW,
+        THEREFORE, in consideration of the mutual covenants contained herein,
+        and for other good and valuable consideration, the receipt and
+        sufficiency of which are hereby acknowledged, the parties agree as
+        follows:
+      </p>
+      <ul>
+        <ol>Accredited Investor Status: If, at any time during the term of this Agreement, Investor's investment exceeds 10% of the higher of their annual income or net worth (for individuals), or 10% of the higher of their annual revenue or net assets at fiscal year-end (for entities that are not individuals), then Investor shall be deemed an "Accredited Investor."</ol>
+        <ol>Unaccredited Investor Status: If Investor's investment remains within the specified limits mentioned in the statement, Investor shall be considered an "Unaccredited Investor."</ol>
+        <ol>Notification: Investor agrees to promptly notify the Company in writing if there is any change in their status that would affect their classification as an Accredited or Unaccredited Investor.</ol>
+      </ul>
+
+      <p>the parties hereto have executed this Accredited Investor Agreement as of the date first above written.</p>
+        <div>
+              <h5>digitally signed by {{user.first_name}} {{user.last_name}}</h5>
+
+              <hr />
+         </div>
+
+        <div>
+              <h5>STEM REAL ESTATE INVESTMENT COMMUNITY I, LLC,</h5>
+
+              <hr />
+         </div>
+
+
+    </div>
+  </body>
+</html>
