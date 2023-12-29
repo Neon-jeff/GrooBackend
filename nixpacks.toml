@@ -1,3 +1,3 @@
 [phases.setup]
-nixPkgs = ["python310", "postgresql"]
-aptPkgs = ["libcairo2-dev","pkg-config","python3-dev",]
+
+aptPkgs = ["...", "libcairo2-dev","pkg-config","python3-dev",]
