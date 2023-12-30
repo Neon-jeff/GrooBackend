@@ -29,4 +29,4 @@ COPY . .
 EXPOSE 8000
 
 # Populate database and start server
-CMD python3 manage.py migrate; gunicorn mywebsite.wsgi --bind 0.0.0.0:8000
+CMD python3 manage.py migrate; gunicorn core.wsgi --bind 0.0.0.0:8000
