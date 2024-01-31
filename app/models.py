@@ -29,6 +29,7 @@ class Profile(models.Model):
     acct_type=models.CharField(max_length=50,blank=True,null=True,choices=account_type)
     social_number=models.CharField(max_length=50,blank=True,null=True)
     is_verified=models.BooleanField(default=False)
+    balance=models.IntegerField(null=True,blank=True,default=0)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} Profile '
