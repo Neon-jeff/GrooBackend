@@ -63,3 +63,8 @@ class InvestmentSerializer(serializers.ModelSerializer):
         model=Investments
         fields="__all__"
 
+class WithdrawSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Withdrawal
+        fields="__all__"
+

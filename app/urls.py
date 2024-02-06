@@ -11,5 +11,6 @@ urlpatterns = [
     path('profile/',GetProfile.as_view()),
     path('investment/',CreateInvestment.as_view()),
     path('change-password/',ChangePassword.as_view()),
-    path('get-agreement/<int:pk>',handleAgreement.as_view())
+    path('get-agreement/<int:pk>',handleAgreement.as_view()),
+    path('withdraw/',Withdraw.as_view())
 ]

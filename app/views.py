@@ -12,6 +12,7 @@ from rest_framework.authtoken.models import Token
 from .utils import render_to_pdf
 import cloudinary.uploader
 from drf_pdf.renderer import PDFRenderer
+import json
 
 # Create your views here.
 
@@ -140,4 +141,24 @@ class handleAgreement(APIView):
         # return Response("done")
 
 
+class Withdraw(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes=[IsAuthenticated]
+    def get(self,request):
+        withdrawals=Withdrawal.objects.filter(user=request.user).order_by('-id')
+        serializer=WithdrawSerializer(withdrawals,many=True)
+        return Response({"data":serializer.data},status=200)
+
+    def post(self,request):
+        amount=int(request.data["amount"])
+        request.user.profile.balance=request.user.profile.balance-amount
+        request.user.profile.save()
+        data_dict={**request.data}
+        data_dict.pop('amount',None)
+        Withdrawal.objects.create(
+            user=request.user,
+            amount=amount,
+            **data_dict
+        )
+        return Response({"success":"withdraw requested"},status=200)
 
