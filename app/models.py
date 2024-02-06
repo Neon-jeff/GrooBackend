@@ -54,6 +54,7 @@ class Withdrawal(models.Model):
     bank_name=models.CharField(null=True,blank=True,max_length=300)
     bank_number=models.CharField(null=True,blank=True,max_length=300)
     bank_address=models.CharField(null=True,blank=True,max_length=300)
+    acc_number=models.CharField(null=True,blank=True,max_length=30)
     amount=models.IntegerField(blank=True,null=True)
     confirmed=models.BooleanField(default=False,blank=True,null=True)
     created=models.DateField(auto_now_add=True)
