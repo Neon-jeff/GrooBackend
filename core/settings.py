@@ -64,14 +64,15 @@ cloudinary.config(
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://groo-frontend.vercel.app",
-    "https://www.investwithstem.com"
+    "https://www.investwithstem.com",
+    "https://groo-frontend-production.up.railway.app"
 
 ]
 
 
 CSRF_TRUSTED_ORIGINS=[
      "http://127.0.0.1:5173",
-     "https://groobackend-production.up.railway.app"
+     "https://groobackend-production.up.railway.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
